@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  postgresdb:
+    image: postgres
+    env_file: ./.env
+    environment:
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASS}
+        POSTGRES_DB: ${DB_NAME}
+    ports:
+      - ${DB_LOCAL_PORT}:${DB_DOCKER_PORT}
+    volumes:
+      - db:/var/lib/postgres
+  app:
+    depends_on:
+      - postgresdb
+    build: ./
+    env_file: ./.env
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+    environment:
+      SPRING_APPLICATION_JSON: '{
+          "spring.datasource.url" : "jdbc:postgresql://postgresdb:$DB_DOCKER_PORT/$DB_NAME",
+          "spring.datasource.username" : "$DB_USER",
+          "spring.datasource.password" : "$DB_PASS",
+          "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+          "spring.jpa.hibernate.ddl-auto" : "update" 
+        }'
+      volumes:
+        -.m2:/root/.m2
+      stdin_open: true
+      tty: true
+
+volumes:
+  db:
+
+
+

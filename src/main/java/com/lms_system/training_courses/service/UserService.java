@@ -1,9 +1,11 @@
 package com.lms_system.training_courses.service;
 
 import com.lms_system.training_courses.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface UserService {
     // save operation
     User saveUser(User user);

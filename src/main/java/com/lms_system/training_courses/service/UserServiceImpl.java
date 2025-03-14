@@ -3,10 +3,11 @@ package com.lms_system.training_courses.service;
 import com.lms_system.training_courses.entity.User;
 import com.lms_system.training_courses.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
+@Service
 public class UserServiceImpl implements UserService{
 
     @Autowired
@@ -28,7 +29,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public User updateUser(User user, Long userId) {
         User userDB = userRepository.findById(userId).get();
-
         userDB.setNickname(user.getNickname());
 
         return userRepository.save(userDB);

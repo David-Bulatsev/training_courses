@@ -6,9 +6,10 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,38 +21,35 @@ public class User {
 
     @NotBlank(message = "User nickname have to be filled")
     @Size(message = "The nickname length should not exceed 32 characters")
-    @Column(name = "nickname", nullable = false, length = 32)
+    @Column(nullable = false, length = 32)
     private String nickname;
 
-    @Column(name = "password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "fullname", nullable = false, length = 32)
+    @Column(nullable = false, length = 32)
     private String fullname;
 
-    @Column(name = "email", nullable = false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(name = "role", nullable = false)
+    @Column(nullable = false)
     private Role role;
 
-    @Column(name = "createdAt", nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updatedAt")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deletedAt")
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "courses")
-    private Integer courses;
+    @Column(nullable = false)
+    private boolean adminRules = false;
 
-
-
-
-
-
+    @OneToMany(mappedBy = "author")
+    private List<Course> courses;
 
 
 }

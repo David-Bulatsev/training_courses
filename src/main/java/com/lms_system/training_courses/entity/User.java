@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -36,8 +37,12 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

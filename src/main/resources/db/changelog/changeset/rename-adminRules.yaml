@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2025041002
+      author: Antipin Egor
+      changes:
+        - renameColumn:
+            tableName: users
+            newColumnName: admin_rules
+            oldColumnName: adminRules

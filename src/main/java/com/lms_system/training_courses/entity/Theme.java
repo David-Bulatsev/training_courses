@@ -23,7 +23,7 @@ public class Theme {
     private String description;
 
     @Lob
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "created_at", nullable = false)

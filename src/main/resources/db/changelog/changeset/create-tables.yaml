@@ -1,0 +1,238 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2025041001
+      author: Antipin Egor
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: nickname
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fullname
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+              - column:
+                  name: deleted_at
+                  type: datetime
+              - column:
+                  name: adminRules
+                  type: boolean
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: courses
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+              - column:
+                  name: deleted_at
+                  type: datetime
+              - column:
+                  name: duration
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tag
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: bigint
+                  constraints:
+                    foreignKeyName: author_fk
+                    referencedTableName: users
+                    referencedColumnNames: id
+        - createTable:
+            tableName: modules
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+              - column:
+                  name: deleted_at
+                  type: datetime
+              - column:
+                  name: course_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: course_id_fk
+                    referencedTableName: courses
+                    referencedColumnNames: id
+        - createTable:
+            tableName: themes
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+              - column:
+                  name: deleted_at
+                  type: datetime
+              - column:
+                  name: module_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: module_id_fk
+                    referencedTableName: modules
+                    referencedColumnNames: id
+        - createTable:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: datetime
+              - column:
+                  name: deleted_at
+                  type: datetime
+              - column:
+                  name: theme_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: theme_id_fk
+                    referencedTableName: themes
+                    referencedColumnNames: id

@@ -1,8 +1,6 @@
 package com.lms_system.training_courses.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,21 +18,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "User nickname have to be filled")
-    @Size(message = "The nickname length should not exceed 32 characters")
     @Column(nullable = false, length = 32)
     private String nickname;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 64)
     private String fullname;
 
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR", nullable = false)
     private Role role;
 
     @Column(name = "created_at", nullable = false)

@@ -24,7 +24,7 @@ public class Task {
     private String description;
 
     @Lob
-    @Column()
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "created_at", nullable = false)

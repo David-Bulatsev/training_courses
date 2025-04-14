@@ -16,6 +16,9 @@ public class UserServiceImpl implements UserService{
     // save operation
     @Override
     public User saveUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
         return userRepository.save(user);
     }
 

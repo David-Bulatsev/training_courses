@@ -3,3 +3,15 @@ databaseChangeLog: #параметр в котором находятся миг
       file: db/changelog/changeset/create-tables.yaml # путь к файлу миграции
   - include:
       file: db/changelog/changeset/rename-adminRules.yaml
+  - include:
+      file: db/changelog/changeset/create-roles-table.yaml
+  - include:
+      file: db/changelog/changeset/update-roles-table.yaml
+  - include:
+      file: db/changelog/changeset/roles_user-table.yaml
+  - include:
+      file: db/changelog/changeset/update-users-table.yaml
+  - include:
+      file: db/changelog/changeset/add-role-column-user-table.yaml
+  - include:
+      file: db/changelog/changeset/upd-password-column.yaml

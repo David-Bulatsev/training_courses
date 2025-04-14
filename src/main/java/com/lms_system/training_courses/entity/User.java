@@ -30,7 +30,7 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Column(columnDefinition = "VARCHAR", nullable = false)
+    @Column(columnDefinition = "VARCHAR")
     private Role role;
 
     @Column(name = "created_at", nullable = false)

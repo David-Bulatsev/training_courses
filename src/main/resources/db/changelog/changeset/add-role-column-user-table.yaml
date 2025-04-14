@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2025041405
+      author: Antipin Egor
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: role
+                  type: varchar(16)
+                  constraints:
+                    nullable: false

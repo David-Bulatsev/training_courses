@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2025041404
+      author: Antipin Egor
+      changes:
+        - dropColumn:
+            tableName: users
+            columnName: role

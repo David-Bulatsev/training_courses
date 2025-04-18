@@ -6,14 +6,15 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@Table(name = "users")
 public class User {
 
     @Id
@@ -53,8 +54,10 @@ public class User {
     @Column(nullable = false)
     private boolean adminRules = false;
 
-    @OneToMany(mappedBy = "author")
-    private List<Course> courses;
+    // сет курсов, на которые записан пользователь
+    // сет - у курса не может быть одного и того же юзера дважды
+    @ManyToMany(mappedBy = "users")
+    private Set<Course> courses;
 
 
 }

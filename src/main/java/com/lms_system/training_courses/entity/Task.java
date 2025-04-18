@@ -2,11 +2,16 @@ package com.lms_system.training_courses.entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "tasks")
 public class Task {
     @Id

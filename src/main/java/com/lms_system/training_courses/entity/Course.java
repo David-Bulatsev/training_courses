@@ -1,17 +1,18 @@
 package com.lms_system.training_courses.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
-@Entity(name = "courses")
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
+@RequiredArgsConstructor
+@Table(name = "courses")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +47,11 @@ public class Course {
     @JoinColumn(name = "author", nullable = false)
     private User author;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Module> modules;
+
+    // сет пользователей, имеющих данный курс
+    // сет - юзер не может повторно записаться на курс
+    @ManyToMany
+    private Set<User> users;
 }

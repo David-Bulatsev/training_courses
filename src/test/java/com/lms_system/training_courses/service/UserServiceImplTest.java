@@ -2,6 +2,7 @@ package com.lms_system.training_courses.service;
 
 import com.lms_system.training_courses.entity.User;
 import com.lms_system.training_courses.repository.UserRepository;
+import com.lms_system.training_courses.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

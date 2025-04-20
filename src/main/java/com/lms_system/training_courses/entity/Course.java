@@ -19,7 +19,7 @@ public class Course {
     private Long id;
 
     @Column(nullable = false, length = 32)
-    private String name;
+    private String title;
 
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)

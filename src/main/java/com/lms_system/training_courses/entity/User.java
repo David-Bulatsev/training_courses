@@ -24,7 +24,7 @@ public class User {
     @NotBlank(message = "User nickname have to be filled")
     @Size(message = "The nickname length should not exceed 32 characters")
     @Column(nullable = false, length = 32)
-    private String nickname;
+    private String name;
 
     @Column(nullable = false)
     private String password;

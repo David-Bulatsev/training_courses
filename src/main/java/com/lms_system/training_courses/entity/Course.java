@@ -1,24 +1,27 @@
 package com.lms_system.training_courses.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
-@Entity(name = "courses")
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
+@RequiredArgsConstructor
+@Table(name = "courses")
+@ToString
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 32)
-    private String name;
+    private String title;
 
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -26,6 +29,11 @@ public class Course {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
@@ -34,7 +42,7 @@ public class Course {
     private LocalDateTime deletedAt;
 
     @Column(nullable = false, length = 32)
-    private String duration;
+    private int duration;
 
     @Column(nullable = false, length = 64)
     private String tag;
@@ -46,6 +54,12 @@ public class Course {
     @JoinColumn(name = "author", nullable = false)
     private User author;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Module> modules;
+
+    // сет пользователей, имеющих данный курс
+    // сет - юзер не может повторно записаться на курс
+//    @JsonManagedReference // "Главная" сторона (сериализуется)
+    @ManyToMany
+    private Set<User> users;
 }

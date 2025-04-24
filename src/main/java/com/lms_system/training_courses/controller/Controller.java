@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("lms/")
+@RequestMapping("/")
 public class Controller {
 
     @Autowired
@@ -31,7 +31,7 @@ public class Controller {
         return userService.saveUser(user);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/lms/all")
     public String pageForAll() { return "This is page for all"; }
 
 }

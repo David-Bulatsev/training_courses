@@ -42,7 +42,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/lms/unauth/welcome").permitAll()
+                        auth.requestMatchers("unauth/**").permitAll()
                                 .requestMatchers("lms/**").authenticated())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();

@@ -32,7 +32,7 @@ public class AuthUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getNickname();
+        return user.getName();
     }
 
     @Override

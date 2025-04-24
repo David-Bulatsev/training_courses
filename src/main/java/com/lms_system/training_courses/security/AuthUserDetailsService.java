@@ -24,16 +24,10 @@ public class AuthUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByNickname(username);
+        Optional<User> user = userRepository.findByName(username);
 
         return user.map(AuthUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User does not exist"));
 
-//        return userRepository.findByNickname(username)
-//                .map(user -> new User(
-//                        user.getNickname(),
-//                        user.getPassword(),
-//                        List.of(new SimpleGrantedAuthority(user.getRole().getName()))))
-//                .orElseThrow(() -> new UsernameNotFoundException("User nof found"));
     }
 }

@@ -28,7 +28,7 @@ class UserServiceImplTest {
     private User createTestUser(Long id, String nickname) {
         User user = new User();
         user.setId(id);
-        user.setNickname(nickname);
+        user.setName(nickname);
         user.setEmail(nickname + "@example.com");
         user.setPassword("password123");
         return user;
@@ -42,7 +42,7 @@ class UserServiceImplTest {
 
         User savedUser = userService.saveUser(testUser);
 
-        assertEquals("testUser", savedUser.getNickname());
+        assertEquals("testUser", savedUser.getName());
         verify(userRepository, times(1)).save(testUser);
     }
 
@@ -70,7 +70,7 @@ class UserServiceImplTest {
 
         User updatedUser = userService.updateUser(newData, 1L);
 
-        assertEquals("newNick", updatedUser.getNickname());
+        assertEquals("newNick", updatedUser.getName());
         verify(userRepository, times(1)).save(existingUser);
     }
 

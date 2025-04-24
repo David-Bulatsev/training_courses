@@ -1,5 +1,6 @@
 package com.lms_system.training_courses.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,16 +22,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "User nickname have to be filled")
-    @Size(message = "The nickname length should not exceed 32 characters")
+    @NotBlank(message = "User name have to be filled")
+    @Size(message = "The name length should not exceed 32 characters")
     @Column(nullable = false, length = 32)
     private String name;
 
     @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false, length = 32)
-    private String fullname;
 
     @Column(nullable = false)
     private String email;
@@ -51,11 +49,12 @@ public class User {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(nullable = false)
+    @Column(name = "admin_rules", nullable = false)
     private boolean adminRules = false;
 
     // сет курсов, на которые записан пользователь
     // сет - у курса не может быть одного и того же юзера дважды
+//    @JsonBackReference // "Подчиненная" сторона (игнорируется)
     @ManyToMany(mappedBy = "users")
     private Set<Course> courses;
 

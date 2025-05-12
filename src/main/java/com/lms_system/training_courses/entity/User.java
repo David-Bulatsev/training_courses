@@ -1,6 +1,5 @@
 package com.lms_system.training_courses.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -52,6 +51,8 @@ public class User {
     @Column(name = "admin_rules", nullable = false)
     private boolean adminRules = false;
 
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    private Course author;
     // сет курсов, на которые записан пользователь
     // сет - у курса не может быть одного и того же юзера дважды
 //    @JsonBackReference // "Подчиненная" сторона (игнорируется)

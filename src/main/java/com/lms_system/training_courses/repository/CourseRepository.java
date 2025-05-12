@@ -1,7 +1,6 @@
 package com.lms_system.training_courses.repository;
 
 import com.lms_system.training_courses.entity.Course;
-import com.lms_system.training_courses.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +9,6 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByTitleLike(String title);
-
 
     List<Course> findAllByCategory(String category);
 

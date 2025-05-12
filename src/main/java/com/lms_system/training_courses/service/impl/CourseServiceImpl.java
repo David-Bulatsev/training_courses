@@ -35,6 +35,17 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public User deleteUserFromCourse(Long userId, Long courseId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователь с id " + userId + " не найден"));
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new NotFoundException("Курс с id " + courseId + " не найден"));
+        user.getCourses().remove(course);
+        course.getUsers().remove(user);
+        return userRepository.save(user);
+    }
+
+    @Override
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }

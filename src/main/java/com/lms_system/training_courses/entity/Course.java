@@ -37,9 +37,6 @@ public class Course {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
     @Column(nullable = false, length = 32)
     private int duration;
 

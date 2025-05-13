@@ -41,11 +41,16 @@ public class CourseController {
 
     @PostMapping()
     @PreAuthorize("hasAuthority('ROLE_TEACHER')")
-    public Course saveCourse(@RequestBody Course course,
+    public ResponseEntity<?> saveCourse(@RequestBody Course course,
                              @AuthenticationPrincipal UserDetails userDetails) {
-        User user = userService.getUserByName(userDetails.getUsername());
-        course.setAuthor(user);
-        return courseService.saveCourse(course);
+        try {
+            User user = userService.getUserByName(userDetails.getUsername());
+            course.setAuthor(user);
+            return new ResponseEntity<>(courseService.saveCourse(course), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @PutMapping("/{id}")

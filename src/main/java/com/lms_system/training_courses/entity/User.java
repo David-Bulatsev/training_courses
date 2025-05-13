@@ -43,9 +43,6 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
     @Column(name = "admin_rules", nullable = false)
     private boolean adminRules = false;
 

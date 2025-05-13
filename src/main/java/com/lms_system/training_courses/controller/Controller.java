@@ -5,6 +5,8 @@ import com.lms_system.training_courses.entity.User;
 import com.lms_system.training_courses.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -28,18 +30,19 @@ public class Controller {
     }
 
     @PostMapping("/unauth/registration")
-    public User registration(@RequestBody User user) {
-        String password = passwordEncoder.encode(user.getPassword());
-        user.setPassword(password);
-        return userService.saveUser(user);
+    public ResponseEntity<?> registration(@RequestBody User user) {
+        try {
+            String password = passwordEncoder.encode(user.getPassword());
+            user.setPassword(password);
+            return new ResponseEntity<>(userService.saveUser(user), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/lms/login")
-    public String login() {
-        return "Success login";
+    public ResponseEntity<?> login() {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @GetMapping("/lms/all")
-    public String pageForAll() { return "This is page for all"; }
 
 }

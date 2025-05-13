@@ -34,9 +34,6 @@ public class Module {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
     @OneToMany(mappedBy = "module")
     private List<Theme> themes;
 

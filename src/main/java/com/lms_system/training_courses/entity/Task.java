@@ -42,9 +42,6 @@ public class Task {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
     @ManyToOne()
     @JoinColumn(name = "theme_id")
     private Theme theme;

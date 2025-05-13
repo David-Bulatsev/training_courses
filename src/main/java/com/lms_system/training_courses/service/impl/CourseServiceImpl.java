@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,28 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Course updateCourse(Course course, Long courseId) {
+        Course courseDB = courseRepository.findById(courseId).get();
+        if (course.getTitle() != null)
+            courseDB.setTitle(course.getTitle());
+        if (course.getDescription() != null)
+            courseDB.setDescription(course.getDescription());
+        courseDB.setUpdatedAt(LocalDateTime.now());
+        if (course.getDescription() != null)
+            courseDB.setDuration(course.getDuration());
+        if (course.getTag() != null)
+            courseDB.setTag(course.getTag());
+        if (course.getCategory() != null)
+            courseDB.setCategory(course.getCategory());
+        return courseRepository.save(courseDB);
+    }
+
+    @Override
+    public void deleteCourse(Long id){
+        courseRepository.deleteById(id);
+    }
+
+    @Override
     public List<Course> filterByCategory(String category) {
         return courseRepository.findAllByCategory(category);
     }
@@ -76,6 +99,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> sortByDuration() {
         return List.of();
+    }
+
+    @Override
+    public Course getById(Long id) {
+        return courseRepository.findById(id).get();
     }
 }
 

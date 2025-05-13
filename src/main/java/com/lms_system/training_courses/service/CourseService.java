@@ -1,6 +1,7 @@
 package com.lms_system.training_courses.service;
 
 import com.lms_system.training_courses.entity.Course;
+import com.lms_system.training_courses.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,12 @@ public interface CourseService {
 
     @Transactional
     Course saveCourse(Course course);
+
+    @Transactional
+    Course updateCourse(Course course, Long courseId);
+
+    @Transactional
+    void deleteCourse(Long courseId);
 
     List<Course> getAllCourses();
 
@@ -30,4 +37,6 @@ public interface CourseService {
     List<Course> sortByDate();
 
     List<Course> sortByDuration();
+
+    Course getById(Long id);
 }

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("lms/students/")
+@PreAuthorize("hasAuthority('ROLE_STUDENT')")
 public class StudentsController {
 
     @GetMapping()
-    @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     public String mainPageForStudent() { return "This is page for students"; }
 
 }

@@ -23,7 +23,6 @@ public class Course {
     @Column(nullable = false, length = 32)
     private String title;
 
-    @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 

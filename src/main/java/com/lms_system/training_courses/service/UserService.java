@@ -7,15 +7,14 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    // save operation
+
     User saveUser(User user);
 
-    // read operation
     List<User> fetchUserList();
 
-    // update operation
     User updateUser(User user, Long UserId);
 
-    // delete operation
     void deleteUserById(Long userId);
+
+    User getUserByName(String name);
 }

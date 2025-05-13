@@ -12,25 +12,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/lms/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    // read operation
-    @GetMapping()
-    public List<User> fetchUserList(HttpSession session) {
-        return userService.fetchUserList();
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    // update operation
+
     @PutMapping("/{id}")
     public User updateUser(@RequestBody User user, @PathVariable("id") Long userId) {
         return userService.updateUser(user, userId);
     }
 
-    // delete operation
     @DeleteMapping("/{id}")
     public String deleteUserById(@PathVariable("id") Long userId) {
         userService.deleteUserById(userId);

@@ -18,7 +18,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/lms/courses")
@@ -36,8 +38,9 @@ public class CourseController {
     }
 
     @GetMapping()
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourses();
+    public ResponseEntity<?> getAllCourses() {
+        return new ResponseEntity<>(courseService.getAllCourses().stream().map(courseMapper::toDto).toList(),
+                HttpStatus.OK);
     }
 
     @PostMapping()
@@ -47,9 +50,12 @@ public class CourseController {
         try {
             User user = userService.getUserByName(userDetails.getUsername());
             course.setAuthor(user);
-            return new ResponseEntity<>(courseService.saveCourse(course), HttpStatus.OK);
+            course.setUsers(new HashSet<>());
+            return new ResponseEntity<>(courseMapper.toDto(courseService.addUserIntoCourse(user.getId(),
+                    courseService.saveCourse(course).getId())),
+                    HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -75,6 +81,9 @@ public class CourseController {
                                           @AuthenticationPrincipal UserDetails userDetails) {
         try {
             if (courseService.getById(courseId).getAuthor().getName().equals(userDetails.getUsername())) {
+                User user = userService.getUserByName(userDetails.getUsername());
+                user.getCourses().remove(courseService.getById(courseId));
+                userService.updateUser(user, user.getId());
                 courseService.deleteCourse(courseId);
                 return new ResponseEntity<>(HttpStatus.OK);
             }

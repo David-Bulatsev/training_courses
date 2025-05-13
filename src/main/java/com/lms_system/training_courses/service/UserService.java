@@ -1,9 +1,11 @@
 package com.lms_system.training_courses.service;
 
+import com.lms_system.training_courses.entity.Course;
 import com.lms_system.training_courses.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public interface UserService {
@@ -19,4 +21,5 @@ public interface UserService {
     User getUserByName(String name);
 
     User getUserById(Long id);
+
 }

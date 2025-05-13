@@ -1,5 +1,6 @@
 package com.lms_system.training_courses.controller;
 
+import com.lms_system.training_courses.dto.mapper.CourseMapper;
 import com.lms_system.training_courses.entity.User;
 import com.lms_system.training_courses.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -21,10 +22,12 @@ import java.util.Objects;
 public class UserController {
 
     private final UserService userService;
+    private final CourseMapper courseMapper;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CourseMapper courseMapper) {
         this.userService = userService;
+        this.courseMapper = courseMapper;
     }
 
 
@@ -45,5 +48,11 @@ public class UserController {
     public ResponseEntity<?> deleteUserById(@PathVariable("id") Long userId) {
         userService.deleteUserById(userId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/courses")
+    public ResponseEntity<?> getUserCourses(@AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.getUserByName(userDetails.getUsername());
+        return new ResponseEntity<>(user.getCourses().stream().map(courseMapper::toDto).toList(), HttpStatus.OK);
     }
 }

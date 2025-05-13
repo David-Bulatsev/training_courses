@@ -103,7 +103,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course getById(Long id) {
-        return courseRepository.findById(id).get();
+        return courseRepository.findById(id).orElseThrow(() -> new NotFoundException("Course not found"));
     }
 }
 

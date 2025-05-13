@@ -17,11 +17,15 @@ import java.util.Optional;
 @Service
 @Primary
 public class CourseServiceImpl implements CourseService {
-    @Autowired
-    UserRepository userRepository;
+
+    private final UserRepository userRepository;
+    private final CourseRepository courseRepository;
 
     @Autowired
-    CourseRepository courseRepository;
+    public CourseServiceImpl(UserRepository userRepository, CourseRepository courseRepository) {
+        this.userRepository = userRepository;
+        this.courseRepository = courseRepository;
+    }
 
     @Override
     public Course addUserIntoCourse(Long userId, Long courseId) {

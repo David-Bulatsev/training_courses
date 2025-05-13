@@ -2,8 +2,6 @@ package com.lms_system.training_courses.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,18 +20,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "User name have to be filled")
-    @Size(message = "The name length should not exceed 32 characters")
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 32, unique = true)
     private String name;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(columnDefinition = "VARCHAR", nullable = false)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name = "created_at", updatable = false)

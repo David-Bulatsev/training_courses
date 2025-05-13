@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/unauth/courses")
 public class CourseController {
-    @Autowired
-    CourseService courseService;
+
+    private final CourseService courseService;
+    private final CourseMapper courseMapper;
 
     @Autowired
-    CourseMapper courseMapper;
+    public CourseController(CourseService courseService, CourseMapper courseMapper) {
+        this.courseService = courseService;
+        this.courseMapper = courseMapper;
+    }
 
     @GetMapping()
     public List<Course> getAllCourses() {

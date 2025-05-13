@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class Controller {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public Controller(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping("/unauth/welcome")
     public String homePage() {
@@ -29,6 +32,11 @@ public class Controller {
         String password = passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
         return userService.saveUser(user);
+    }
+
+    @PostMapping("/lms/login")
+    public String login() {
+        return "Success login";
     }
 
     @GetMapping("/lms/all")

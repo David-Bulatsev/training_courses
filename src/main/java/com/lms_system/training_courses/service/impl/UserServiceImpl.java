@@ -11,10 +11,13 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    // save operation
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public User saveUser(User user) {
         if (user == null) {
@@ -23,13 +26,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    // read operation
     @Override
     public List<User> fetchUserList() {
         return (List<User>) userRepository.findAll();
     }
 
-    // updateOperation
     @Override
     public User updateUser(User user, Long userId) {
         User userDB = userRepository.findById(userId).get();
@@ -37,7 +38,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userDB);
     }
 
-    // deleteOperation
     @Override
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);

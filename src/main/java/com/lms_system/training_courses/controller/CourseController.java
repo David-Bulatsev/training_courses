@@ -1,5 +1,6 @@
 package com.lms_system.training_courses.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.lms_system.training_courses.dto.CourseDTO;
 import com.lms_system.training_courses.dto.mapper.CourseMapper;
 import com.lms_system.training_courses.entity.Course;
@@ -84,9 +85,14 @@ public class CourseController {
     }
 
     @PostMapping("/{courseId}/assign")
-    public CourseDTO assignUser(@PathVariable("courseId") Long courseId,
-                                @RequestParam("userId") Long userId) throws NotFoundException {
-        Course course = courseService.addUserIntoCourse(userId, courseId);
-        return courseMapper.toDto(course);
+    public ResponseEntity<?> assignUser(@PathVariable("courseId") Long courseId,
+                                @AuthenticationPrincipal UserDetails userDetails) {
+        try {
+            Long userId = userService.getUserByName(userDetails.getUsername()).getId();
+            Course course = courseService.addUserIntoCourse(userId, courseId);
+            return new ResponseEntity<>(courseMapper.toDto(course), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
